@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Fenton Grocer</title>
+    <style>
+        input, button{font-family: 'Courier Prime', monospace;}
+        body{font-family: 'Courier Prime', monospace;}
+      /* Style for the modal box */
+      .modal {
+        display: none; /* Hide the modal box by default */
+        position: fixed; /* Position it as fixed */
+        z-index: 1; /* Set its z-index */
+        left: 0;
+        top: 0;
+        width: 100%; /* Make it take up the full width */
+        height: 100%; /* Make it take up the full height */
+        overflow: auto; /* Enable scrolling */
+        background-color: rgba(0,0,0,0.4); /* Add a black background with opacity */
+      }
+      
+      /* Style for the modal box content */
+      .modal-content {
+        background-color: white; /* Add a white background */
+        margin: 15% auto; /* Center it on the page */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+      }
+      
+      /* Style for the modal box header */
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      
+      /* Style for the modal box body */
+      .modal-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      /* Style for the fruit navigation links */
+      .fruit-navigation {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+      
+      /* Style for the individual fruit lists */
+      .fruit-list {
+        display: none;
+      }
+      
+      /* Style for the close button */
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+      
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      a {
+        background-color: green;
+        padding: 20px;
+        color: white;
+        border: solid white;
+        border-radius: 0;
+        margin: auto;
+      }
+      a:hover{border: dashed black; opacity: 70%;}
+      .modal button{background-color: green; padding: 20px; border: 1px solid black; border-radius: 0;}
+        .modal button:hover{opacity: 70%; border: dashed; cursor: pointer;}
+        button:hover{cursor: pointer;}
+    </style>
+  </head>
+  <body>
+    <h1>Fenton Grocer</h1>
+    <h2>Buy fresh produce here</h2>
+    <h3>You are being served by ALBERT</h3>
+    <button id="open-modal" class="padding"><img src="images/IMG_6095.jpeg" height="60px" title="Fresh potatoes grown by Aussie farmers">Fruit and Vegies</button><br><br><br>
+    <input id="userName" placeholder="Name..">
+    <input id="userInput" placeholder="Enter product name here.."/>
+    <button onclick="itemAdd()">Add Item</button>
+    <div id="items">
+        <h3 id="nameDisplay">Items:</h3>
+    </div>
+    <button id="calculate-button">Pay Now &gt;&gt;</button>
+    <div id="total-price"></div>
+    <!-- Modal Box HTML -->
+    <div class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Select a fruit</h2>
+          <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+          <ul class="fruit-navigation">
+            <li><a href="#a">A</a></li>
+            <li><a href="#b">B</a></li>
+            <li><a href="#c">C</a></li>
+            <li><a href="#d">D</a></li>
+            <li><a href="#e">E</a></li>
+            <li><a href="#f">F</a></li>
+            <li><a href="#g">G</a></li>
+            <li><a href="#h">H</a></li>
+            <li><a href="#i">I</a></li>
+            <li><a href="#j">J</a></li>
+            <li><a href="#k">K</a></li>
+            <li><a href="#l">L</a></li> 
+            <li><a href="#m">M</a></li>
+            <li><a href="#n">N</a></li>
+            <li><a href="#o">O</a></li>
+            <li><a href="#p">P</a></li>
+            <li><a href="#q">Q</a></li>
+            <li><a href="#r">R</a></li>
+            <li><a href="#s">S</a></li>
+            <li><a href="#t">T</a></li>
+          </ul>
+          <div class="fruit-list" id="a">
+            <h3>Fruits that start with A</h3>
+            <ul>
+              <button class="selected items item-btn" data-price="1.60">Avocado</button>
+              <button class="selected items item-btn" data-price="2.50">Apricot</button>
+            </ul>
+          </div>
+          <div class="fruit-list" id="b">
+            <h3>Fruits that start with B</h3>
+            <ul>
+              <button class="selected items item-btn" data-price="5.90">Banana</button>
+              <button class="selected items item-btn" data-price="3.00">Blueberries</button>
+            </ul>
+          </div>
+          <div class="fruit-list" id="c">
+            <h3>Fruits that start with C</h3>
+            <ul>
+                <button class="selected items item-btn" data-price="4.05">Cantalope</button>
+                <button class="selected items item-btn" data-price="3.99">Cherry</button>
+            </ul>
+        </div>
+        <div class="fruit-list" id="d">
+            <h3>Fruits that start with D</h3>
+            <ul>
+                <button class="selected items item-btn" data-price="5.99">Dragonfruit</button>
+                <button class="selected items item-btn" data-price="6.00">Durian</button>
+            </ul>
+        </div>
+        <div class="fruit-list" id="e">
+            <h3>Fruits that start with E</h3>
+            <ul>
+                <button class="selected items item-btn" data-price="3.00">Edible Fig</button>
+                <button class="selected items item-btn" data-price="2.55">Edible Flower</button>
+            </ul>
+        </div>
+        <div class="fruit-list" id="f">
+            <h3>Fruits that start with F</h3>
+            <ul>
+                <button class="selected items item-btn" data-price="2.64">Figs</button>
+                <button class="selected items item-btn" data-price="9.81">Feijoa</button>
+            </ul>
+        </div>
+        <div class="fruit-list" id="g">
+            <h3>Fruits that start with G</h3>
+            <ul>
+                <button class="selected items item-btn" data-price="7.98">Grapefruit</button>
+                <button class="selected items item-btn" data-price="7.25">Grapes</button>
+            </ul>
+        </div>
+        <div class="fruit-list" id="h">
+            <h3>Fruits that start with H</h3>
+            <ul>
+                <button class="selected items item-btn" data-price="8.57">Honeydew</button>
+                <button class="selected items item-btn" data-price="2.35">Huckleberry</button>
+            </ul>
+            </div>
+    </div>
+    <div class="fruit-list" id="i">
+        <h3>Fruits that start with I</h3>
+        <ul>
+            <button class="selected items item-btn" data-price="4.99">Ice Apple</button>
+            <button class="selected items item-btn" data-price="3.22">Iceberg Lettuce</button>
+        </ul>
+    </div>
+    <div class="fruit-list" id="j">
+        <h3>Fruits that start with J</h3>
+        <ul>
+            <button class="selected items item-btn" data-price="4.60">Jackfruit</button>
+            <button class="selected items item-btn" data-price="2.80">Jambul</button>
+        </ul>   
+        </div>
+        <div class="fruit-list" id="k">
+            <h3>Fruits that start with K</h3>
+            <ul>
+                <button class="selected items item-btn" data-price="6.50">Kiwi</button>
+                <button class="selected items item-btn" data-price="5.26">Kumquat</button>
+            </ul>
+        </div>
+        <div class="fruit-list" id="l">
+            <h3>Fruits that start with L</h3>
+            <ul>
+                <button class="selected items item-btn" data-price="8.09">Lemon</button>
+                <button class="selected items item-btn" data-price="6.27">Lime</button>
+            </ul>
+        </div>
+        <div class="fruit-list" id="m">
+            <h3>Fruits that start with M</h3>
+            <ul>
+                <button class="selected items item-btn" data-price="8.92">Mango</button>
+                <button class="selected items item-btn" data-price="6.50">Mulberry</button>
+            </ul>
+        </div>
+        <div class="fruit-list" id="n">
+            <h3>Fruits that start with N</h3>
+            <ul>
+                <button class="selected items item-btn" data-price="2.59">Nectarine</button>
+                <button class="selected items item-btn" data-price="2.56">Nance</button>
+                </ul>
+        </div>
+        <div class="fruit-list" id="o">
+            <h3>Fruits that start with O</h3>
+            <ul>
+                <button class="selected items item-btn" data-price="5.29">Orange</button>
+                <button class="selected items item-btn" data-price="6.29">Olive</button>
+            </ul>
+        </div>
+        <div class="fruit-list" id="p">
+            <h3>Fruits that start with P</h3>
+            <ul>
+                <button class="selected items item-btn" data-price="3.48">Peach</button>
+                <button class="selected items item-btn" data-price="1.58">Pear</button>
+            </ul>
+        </div>
+        <div class="fruit-list" id="q">
+            <h3>Fruits that start with Q</h3>
+            <ul>
+                <button class="selected items item-btn" data-price="5.28">Quince</button>
+                <button class="selected items item-btn" data-price="2.18">Quararibea</button>
+            </ul>
+        </div>
+        <div class="fruit-list" id="r">
+            <h3>Fruits that start with R</h3>
+            <ul>
+                <button class="selected items item-btn" data-price="5.08">Raspberry</button>
+                <button class="selected items item-btn" data-price="2.72">Rambutan</button>
+            </ul>
+        </div>
+        <div class="fruit-list" id="s">
+            <h3>Fruits that start with S</h3>
+            <ul>
+                <button class="selected items item-btn" data-price="7.76">Strawberry</button>
+                <button class="selected items item-btn" data-price="12.65">Star fruit</button>
+            </ul>
+        </div>
+        <div class="fruit-list" id="t">
+            <h3>Fruits that start with T</h3>
+            <ul>
+                <button class="selected items item-btn" data-price="2.97">Tangerine</button>
+                <button class="selected items item-btn" data-price="3.99">Tomato</button>
+            </ul>
+        </div>
+            </div>
+</div>
+<script>
+    let itemsDiv = document.getElementById('items');
+function itemAdd() {
+  let userInput = document.getElementById('userInput').value;
+  let userName = document.getElementById('userName').value;
+  let items = itemsDiv.querySelectorAll('li');
+  let nameDisplay = document.getElementById('nameDisplay');
+  nameDisplay.innerHTML = 'Username: ' + userName.toUpperCase();
+    let currentItem = document.createElement('li');
+    currentItem.innerHTML = userInput;
+    itemsDiv.appendChild(currentItem);
+    document.getElementById('userInput').value = "";
+  }
+  // Get the modal box
+  var modal = document.querySelector('.modal');
+
+  // Get the button that opens the modal box
+  var btn = document.getElementById("open-modal");
+
+  // Get the <span> element that closes the modal box
+  var span = document.getElementsByClassName("close")[0];
+
+  // When the user clicks the button, open the modal box
+  btn.onclick = function() {
+    modal.style.display = "block";
+  }
+
+  // When the user clicks on <span> (x), close the modal box
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal box, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+
+  // Show the appropriate fruit list when the corresponding link is clicked
+  var fruitNavigationLinks = document.querySelectorAll('.fruit-navigation a');
+  var fruitLists = document.querySelectorAll('.fruit-list');
+  
+  fruitNavigationLinks.forEach(function(link) {
+    link.addEventListener('click', function(event) {
+      event.preventDefault();
+      
+      // Hide all the fruit lists
+      fruitLists.forEach(function(list) {
+        list.style.display = 'none';
+      });
+      
+      // Show the appropriate fruit list
+      var href = this.getAttribute('href');
+      var targetList = document.querySelector(href);
+      targetList.style.display = 'block';
+    });
+  });
+  const itemBtns = document.querySelectorAll(".item-btn");
+const listDiv = document.getElementById("items");
+
+itemBtns.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const li = document.createElement("li");
+    li.textContent = btn.textContent + " - $" + btn.dataset.price;
+    li.classList.add("selected-product");
+    listDiv.appendChild(li);
+
+    // remove the event listener to prevent duplicates
+    btn.removeEventListener("click", this);
+  });
+});
+
+// get the button and the list of selected products
+const calculateButton = document.getElementById('calculate-button');
+console.log(calculateButton);
+const selectedProducts = document.querySelectorAll('.selected-product');
+console.log(selectedProducts);
+
+
+// add an event listener to the button to calculate the total price
+calculateButton.addEventListener('click', function() {
+  let totalPrice = 0;
+  
+  selectedProducts.forEach(function(product) {
+    if (product.checked) { // check if the product is selected
+      const price = parseFloat(product.dataset.price); // convert price to a number
+      totalPrice += price;
+    }
+  });
+  
+  const totalPriceDisplay = document.getElementById('total-price');
+  totalPriceDisplay.textContent = `Total Price: $${totalPrice.toFixed(2)}`;
+});
+
+</script>
+</body>
+</html>
+
